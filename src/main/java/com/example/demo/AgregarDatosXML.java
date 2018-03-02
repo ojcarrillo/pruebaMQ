@@ -32,6 +32,7 @@ public class AgregarDatosXML {
 	private final static String BILL = "bill.txt";
 	private final static String INVOICE = "invoice.txt";
 	private final static String RECEIPTS = "recepits.txt";
+	private static final String ENDLINE = "\r\n";
 	
 	public void aggregarAlXML(String msg) {
 		/* primer caracter determina el tipo de transaccion B,I,R */
@@ -68,15 +69,15 @@ public class AgregarDatosXML {
 		/* valida si existe el archivo, sino lo crea */
 		if(!file.exists()) {			
 			file.getParentFile().mkdirs();
-			file.createNewFile();
-			Set<PosixFilePermission> permissions = PosixFilePermissions.fromString("rwxrwxrwx");
+			file.createNewFile(); 
+			Set<PosixFilePermission> permissions = PosixFilePermissions.fromString("rw-rw-rw-");
 		    FileAttribute<Set<PosixFilePermission>> fileAttributes = PosixFilePermissions
 		        .asFileAttribute(permissions);
 		    Files.setPosixFilePermissions(Paths.get(file.getPath()), permissions);			
 		}
 		/* agrega el nuevo mensaje al archivo */
 		try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(fileName), StandardOpenOption.APPEND)) {
-		    writer.write(msgAdd);
+		    writer.write(msgAdd + ENDLINE);
 		    writer.close();
 		} catch (IOException ioe) {
 		    log.error("IOException: %s%n", ioe);
