@@ -34,8 +34,8 @@ public class ConsumerHandlerMQ implements CommandLineRunner {
 		ConnectionFactory factory = new ConnectionFactory();
 		factory.setUsername("b2c_client");
 		factory.setPassword("SuperPassword000");
-		// factory.setHost("localhost");
-		factory.setHost("35.203.110.236");
+		factory.setHost("dk_rabbitmq");
+		//factory.setHost("35.203.110.236");
 		factory.setPort(5672);
 		/* abre la conexion */
 		Connection connection = factory.newConnection();
